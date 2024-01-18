@@ -1,15 +1,8 @@
 import {FC, PropsWithChildren, useState} from 'react'
-import {
-  DndContext,
-  DragEndEvent,
-  DragOverlay,
-  DragStartEvent,
-  pointerWithin,
-  useDraggable,
-  useDroppable
-} from '@dnd-kit/core'
+import {DndContext, DragEndEvent, DragOverlay, DragStartEvent, pointerWithin, useDraggable} from '@dnd-kit/core'
 import {snapCenterToCursor} from '@dnd-kit/modifiers'
 import ContentItem from './ContentItem.tsx'
+import {Page, Section} from './Components.tsx'
 
 const defaultState: State = {
   pages: [{
@@ -21,41 +14,6 @@ const defaultState: State = {
       }]
     }]
   }]
-}
-
-const Page: FC<PropsWithChildren<{ index: number }>> = ({index, children}) => {
-  const {setNodeRef, isOver} = useDroppable({
-    id: `page-${index}`,
-    data: {
-      id: index,
-      type: 'page',
-    },
-  })
-
-  return (
-    <div className={`page${isOver ? ' outline' : ''}`} ref={setNodeRef}>
-      <p className="title">page {index + 1}</p>
-      {children}
-    </div>
-  )
-}
-
-const Section: FC<PropsWithChildren<{ index: number; pageIndex: number }>> = ({index, pageIndex, children}) => {
-  const {setNodeRef, isOver} = useDroppable({
-    id: `section-${index}`,
-    data: {
-      id: index,
-      type: 'section',
-      pageIndex: pageIndex,
-    },
-  })
-
-  return (
-    <div className={`section${isOver ? ' outline' : ''}`} ref={setNodeRef}>
-      <p className="title">section {index + 1}</p>
-      {children}
-    </div>
-  )
 }
 
 const Draggable: FC<PropsWithChildren<{ type: string }>> = ({type, children}) => {

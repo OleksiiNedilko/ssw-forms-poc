@@ -5,12 +5,16 @@
   min-width: 0;
 }
 
-.outline{
+#root{
+  width: 100%;
+}
+
+.outline {
   outline: 2px solid #cc7832;
 }
 
-.opacity{
-    opacity: 0.5;
+.opacity {
+  opacity: 0.5;
 }
 
 header {
@@ -22,7 +26,7 @@ header {
   padding: 0 1em;
 }
 
-.clear-storage{
+.clear-storage {
   padding: 0.5em 1em;
   line-height: 1;
 }
@@ -64,6 +68,7 @@ header {
   border: 1px solid #1a1a1a;
   border-radius: 16px;
   background: #e3e2e2;
+  width: 100%;
 }
 
 .section {
@@ -93,7 +98,7 @@ header {
   color: black;
 }
 
-.hide-btn{
+.hide-btn {
   position: absolute;
   top: 12px;
   right: 12px;
@@ -123,6 +128,25 @@ header {
   padding: 0;
 }
 
-.save-button{
+.save-button {
   margin-top: auto;
+}
+
+.nav-wrapper {
+  display: flex;
+  gap: 8px;
+}
+
+.preview-content{
+  padding: 4em;
+  display: flex;
+    flex-direction: column;
+    gap: 16px;
+  align-items: center;
+  width: 100%;
+}
+
+.paginator{
+    display: flex;
+    gap: 24px;
 }
