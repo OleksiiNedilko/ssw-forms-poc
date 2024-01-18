@@ -1,6 +1,10 @@
 import {FC} from 'react'
 
-const ContentItem: FC<{ content: Content; isBuilder?:boolean }> = ({content, isBuilder=false}) => {
+const ContentItem: FC<{ content: Content; isBuilder?: boolean }> = ({content, isBuilder = false}) => {
+  if (!isBuilder && content.status === 'hidden') {
+    return null
+  }
+
   switch (content.type) {
     case 'text':
       return <h4>{content.value as string}</h4>

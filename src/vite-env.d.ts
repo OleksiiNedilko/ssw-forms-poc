@@ -3,6 +3,7 @@
 
 type Content = {
   type?: 'text' | 'input' | 'radio'
+  status: 'active' | 'hidden'
   value?: string | { [key: string]: string }
 }
 

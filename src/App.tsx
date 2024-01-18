@@ -7,6 +7,10 @@ function App() {
     <>
       <header>
         <p>form builder</p>
+        <button type={'button'} className={'clear-storage'} onClick={() => {
+          localStorage.clear()
+        }}>clear
+        </button>
       </header>
       <BuilderPage/>
     </>

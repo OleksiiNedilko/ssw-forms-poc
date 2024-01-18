@@ -16,7 +16,8 @@ const defaultState: State = {
     sections: [{
       content: [{
         type: 'text',
-        value: 'hello'
+        value: 'hello',
+        status: 'active',
       }]
     }]
   }]
@@ -97,7 +98,11 @@ const BuilderPage: FC = () => {
   const addText = (pageIndex: number, sectionIndex: number) => {
     setContent(prev => {
       const newContent = structuredClone(prev)
-      newContent.pages[pageIndex].sections[sectionIndex].content.push({type: 'text', value: Date.now().toString()})
+      newContent.pages[pageIndex].sections[sectionIndex].content.push({
+        type: 'text',
+        value: Date.now().toString(),
+        status: 'active'
+      })
       return newContent
     })
   }
@@ -108,6 +113,7 @@ const BuilderPage: FC = () => {
       const contentLength = newContent.pages[0].sections[sectionIndex].content.length
       newContent.pages[pageIndex].sections[sectionIndex].content.push({
         type: 'input',
+        status: 'active',
         value: {name: `text${contentLength}`, label: `text${contentLength}`}
       })
       return newContent
@@ -120,8 +126,17 @@ const BuilderPage: FC = () => {
       const contentLength = newContent.pages[0].sections[sectionIndex].content.length
       newContent.pages[pageIndex].sections[sectionIndex].content.push({
         type: 'radio',
+        status: 'active',
         value: {name: `radio${contentLength}`, label: `radio${contentLength}`}
       })
+      return newContent
+    })
+  }
+
+  const switchStatus= (pageIndex: number, sectionIndex: number, itemIndex: number) => {
+    setContent(prev => {
+      const newContent = structuredClone(prev)
+      newContent.pages[pageIndex].sections[sectionIndex].content[itemIndex].status = newContent.pages[pageIndex].sections[sectionIndex].content[itemIndex].status==='active'?'hidden':'active'
       return newContent
     })
   }
@@ -173,8 +188,9 @@ const BuilderPage: FC = () => {
                     <Section index={sectionIndex} pageIndex={pageIndex} key={sectionIndex}>
                       <>
                         {section.content.map((item, itemIndex) => (
-                          <div key={itemIndex} className={'form-content'}>
-                            <ContentItem content={item} isBuilder/>
+                          <div key={itemIndex} className={`form-content${item.status === 'hidden' ? ' opacity' : ''}`}>
+                            <ContentItem content={item} isBuilder />
+                            <button type={'button'} className={'hide-btn'} onClick={()=>switchStatus(pageIndex, sectionIndex, itemIndex)}>{item.status === 'hidden' ? '*' : '/'}</button>
                           </div>
                         ))}
                       </>
@@ -197,7 +213,9 @@ const BuilderPage: FC = () => {
                 : null}
             </DragOverlay>
 
-            <button type={'button'} className={'save-button'} onClick={() => localStorage.setItem('form', JSON.stringify(content))}>Save</button>
+            <button type={'button'} className={'save-button'}
+                    onClick={() => localStorage.setItem('form', JSON.stringify(content))}>Save
+            </button>
           </div>
           <button type={'button'} onClick={addPage} className={'addPageBtn'}>+</button>
         </div>
