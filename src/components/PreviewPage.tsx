@@ -61,7 +61,7 @@ const PreviewPage = () => {
       </>
     </Page>
   }
-    {paginator.pages > 0 && <div className={'paginator'}>
+    {paginator.pages > 1 && <div className={'paginator'}>
       <button type={'button'} disabled={paginator.current === 0} onClick={stepBackward}>{'<'}</button>
       <button type={'button'} disabled={paginator.current === currentForm.pages.length - 1}
               onClick={stepForward}>{'>'}</button>
